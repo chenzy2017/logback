@@ -1,33 +1,30 @@
 /**
  * Logback: the reliable, generic, fast and flexible logging framework.
  * Copyright (C) 1999-2015, QOS.ch. All rights reserved.
- *
+ * <p>
  * This program and the accompanying materials are dual-licensed under
  * either the terms of the Eclipse Public License v1.0 as published by
  * the Eclipse Foundation
- *
- *   or (per the licensee's choosing)
- *
+ * <p>
+ * or (per the licensee's choosing)
+ * <p>
  * under the terms of the GNU Lesser General Public License version 2.1
  * as published by the Free Software Foundation.
  */
 package ch.qos.logback.core.rolling.helper;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import ch.qos.logback.core.Context;
+import ch.qos.logback.core.ContextBase;
+import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import org.junit.Test;
-
-import ch.qos.logback.core.Context;
-import ch.qos.logback.core.ContextBase;
+import static org.junit.Assert.*;
 
 /**
  * @author Ceki
- * 
+ *
  */
 public class FileNamePatternTest {
 
@@ -145,12 +142,12 @@ public class FileNamePatternTest {
         {
             FileNamePattern fnp = new FileNamePattern("foo-%d{yyyy.MM.dd}-%i.txt", context);
             String regex = fnp.toRegexForFixedDate(cal.getTime());
-            assertEquals("foo-2003.05.20-(\\d{1,3}).txt", regex);
+            assertEquals("foo-2003.05.20-(\\d+).txt", regex);
         }
         {
             FileNamePattern fnp = new FileNamePattern("\\toto\\foo-%d{yyyy\\MM\\dd}-%i.txt", context);
             String regex = fnp.toRegexForFixedDate(cal.getTime());
-            assertEquals("/toto/foo-2003/05/20-(\\d{1,3}).txt", regex);
+            assertEquals("/toto/foo-2003/05/20-(\\d+).txt", regex);
         }
     }
 
@@ -159,12 +156,12 @@ public class FileNamePatternTest {
         {
             FileNamePattern fnp = new FileNamePattern("foo-%d{yyyy.MM.dd}-%i.txt", context);
             String regex = fnp.toRegex();
-            assertEquals("foo-\\d{4}\\.\\d{2}\\.\\d{2}-\\d{1,2}.txt", regex);
+            assertEquals("foo-\\d{4}\\.\\d{2}\\.\\d{2}-\\d+.txt", regex);
         }
         {
             FileNamePattern fnp = new FileNamePattern("foo-%d{yyyy.MM.dd'T'}-%i.txt", context);
             String regex = fnp.toRegex();
-            assertEquals("foo-\\d{4}\\.\\d{2}\\.\\d{2}T-\\d{1,2}.txt", regex);
+            assertEquals("foo-\\d{4}\\.\\d{2}\\.\\d{2}T-\\d+.txt", regex);
         }
     }
 
